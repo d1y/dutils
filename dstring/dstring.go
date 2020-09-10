@@ -43,6 +43,36 @@ func Padding(targetString string, paddingString string, length int) string {
 	return result
 }
 
+// PaddingLength padding string with length
+// if length is `Odd` number, first add right
+//
+// length=11 | left=> 5 | right=> 6
+func PaddingLength(targetString string, paddingString string, length int) string {
+	if length <= 0 {
+		return ""
+	}
+	var isBase = length%2 == 0
+	var x = length / 2
+	var offsetL = x
+	var offsetR = x
+	if !isBase {
+		offsetR++
+	}
+	var left = Fill(paddingString, offsetL)
+	var right = Fill(paddingString, offsetR)
+	return left + targetString + right
+}
+
+// PaddingTotalWidth padding total length
+func PaddingTotalWidth(targetString string, paddingString string, totalLength int) string {
+	var len = len(targetString)
+	if totalLength <= len {
+		return ""
+	}
+	var offset = totalLength - len
+	return PaddingLength(targetString, paddingString, offset)
+}
+
 // Fill fill string
 func Fill(paddingString string, length int) string {
 	var r string
